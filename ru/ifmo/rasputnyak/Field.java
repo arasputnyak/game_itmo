@@ -8,12 +8,16 @@ import java.util.Scanner;
  * Created by Владелец on 28.02.2015.
  */
 public class Field {
-    int length;
+    private final int length;
+    private final Cell.Color[][] matrixPole;
+
     public Field(int length) {
         this.length = length;
+        this.matrixPole = new Cell.Color[length][length];
     }
-    private final Cell.Color[][] matrixPole = new Cell.Color[length][length];
-    Cell matrixCell = new Cell();
+
+    private Cell matrixCell = new Cell();
+
     public void fillPole() {
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length; j++) {
@@ -32,7 +36,7 @@ public class Field {
         int z;
         int t;
         Scanner scanner = new Scanner(System.in);
-        while (f == false) {
+        while (!f) {
             System.out.println("Введите коорднаты1:\n" + "x=");
             x = scanner.nextInt();
             System.out.println("y=");
