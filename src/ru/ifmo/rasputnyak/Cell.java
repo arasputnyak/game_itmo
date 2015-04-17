@@ -15,7 +15,7 @@ public class Cell {
         int k;
         Color cell;
         cell = Color._;
-        k = random.nextInt(4);
+        k = random.nextInt(5);
         if (k == 0) {
             cell = Color.B;
         }

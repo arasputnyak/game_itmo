@@ -24,7 +24,8 @@ public class Main {
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         System.out.println(field);
-        frame.fieldChanged();
+        System.out.println("текущий счет: 0");
+        frame.fieldChanged1();
         while (field.checkField() == true) {
             while (field.checkline() == true) {
                 field.removeBalls();

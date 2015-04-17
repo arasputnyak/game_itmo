@@ -150,10 +150,10 @@ public class Field {
                             matrixPole[i][m] = Cell.Color._;
                         }
                     }
-                    }
-                sum = 0;
                 }
+                sum = 0;
             }
+        }
         for (int j = 0; j < length; j++) {
             for (int i = 0; i < length; i++) {
                 for (int k = i + 1; k < length; k++) {
@@ -171,21 +171,21 @@ public class Field {
                 sum = 0;
             }
         }
-        }
+    }
     public void replaceBalls() {
-            for (int i = 0; i < length; i++) {
-                for (int j = 0; j < length; j++) {
-                    if (matrixPole[i][j].equals(Cell.Color._)) {
-                        if (i == 0) {
-                            matrixPole[i][j] = matrixCell.getColor();
-                        } else {
-                            matrixPole[i][j] = matrixPole[i - 1][j];
-                            matrixPole[i - 1][j] = Cell.Color._;
-                        }
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                if (matrixPole[i][j].equals(Cell.Color._)) {
+                    if (i == 0) {
+                        matrixPole[i][j] = matrixCell.getColor();
+                    } else {
+                        matrixPole[i][j] = matrixPole[i - 1][j];
+                        matrixPole[i - 1][j] = Cell.Color._;
                     }
                 }
             }
         }
+    }
 
     public boolean noBalls() {
         boolean f = false;
