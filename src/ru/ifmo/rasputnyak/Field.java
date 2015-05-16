@@ -2,6 +2,8 @@ package ru.ifmo.rasputnyak;
 
 import ru.ifmo.rasputnyak.Cell;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -10,6 +12,7 @@ import java.util.Scanner;
 public class Field {
     private final int length;
     private final Cell.Color[][] matrixPole;
+    private final List<FieldObserver> observers = new ArrayList<FieldObserver>();
     public Field(int length) {
         this.length = length;
         this.matrixPole = new Cell.Color[length][length];
@@ -28,35 +31,27 @@ public class Field {
     public int size() {
         return length;
     }
-    public void changeMeaning() {
+    public void changeMeaning(int x, int y, int z, int t, Field field) {
         boolean f;
         f = false;
-        int x;
-        int y;
-        int z;
-        int t;
-        Scanner scanner = new Scanner(System.in);
         while (!f) {
-            System.out.println("Введите коорднаты1:\n" + "x=");
-            x = scanner.nextInt();
-            System.out.println("y=");
-            y = scanner.nextInt();
             Cell.Color value1;
             value1 = matrixPole[x][y];
-            System.out.println("Введите коорднаты2:\n" + "z=");
-            z = scanner.nextInt();
-            System.out.println("t=");
-            t = scanner.nextInt();
             Cell.Color value2;
             if (Math.abs(x - z) <= 1 && Math.abs(y - t) <= 1) {
                 value2 = matrixPole[z][t];
                 matrixPole[x][y] = value2;
                 matrixPole[z][t] = value1;
                 f = true;
-            } else {
-                System.out.println("Такой ход сделать нельзя");
             }
         }
+            while (field.checkline() == true) {
+                field.removeBalls();
+                while (field.noBalls() == true) {
+                    field.replaceBalls();
+                }
+            }
+        field.informObservers();
     }
 
     public int getScore1() {
@@ -198,15 +193,6 @@ public class Field {
         }
         return f;
     }
-    public void addBalls() {
-        for (int i = 0; i < length; i++) {
-            for (int j = 0; j < length; j++) {
-                if (matrixPole[i][j].equals(Cell.Color._)) {
-                    matrixPole[i][j] = matrixCell.getColor();
-                }
-            }
-        }
-    }
     public boolean checkline() {
         boolean f = false;
         for (int i = 0; i < length; i++) {
@@ -224,6 +210,14 @@ public class Field {
             }
         }
         return f;
+    }
+    private void informObservers() {
+        for (final FieldObserver observer : observers) {
+            observer.fieldChanged();
+        }
+    }
+    public void addObserver(FieldObserver observer) {
+        observers.add(observer);
     }
 
     @Override
