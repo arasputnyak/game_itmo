@@ -4,21 +4,12 @@ package ru.ifmo.rasputnyak;
  * Created by Владелец on 20.05.2015.
  */
 public class Game {
-    int n;
-    public Game(int n) {
-        this.n = n;
+    private final Field field;
+    public Game(final Field field) {
+        this.field = field;
     }
     public void startNewGame() {
-        Field field = new Field(n);
-        field.fillPole();
-        while (field.checkLine() == true) {
-            field.removeBalls();
-            while (field.noBalls()) {
-                field.replaceBalls();
-            }
-        }
-        FrameField frame = new FrameField(field);
-        frame.setVisible(true);
+        field.reset();
     }
 }
 

@@ -9,8 +9,12 @@ import javax.swing.*;
  */
 public class Main {
     public static void main(String[] args) {
-        Game newGame = new Game(7);
+        final Field field = new Field(7);
+        final Game newGame = new Game(field);
+
         newGame.startNewGame();
 
+        FrameField frame = new FrameField(field, newGame);
+        frame.setVisible(true);
     }
 }

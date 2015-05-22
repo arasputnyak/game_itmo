@@ -9,18 +9,17 @@ import java.awt.event.ActionListener;
  * Created by Владелец on 15.03.2015.
  */
 public class FrameField extends JFrame implements FieldObserver {
-    private Field field;
-    private JButton[][] buttons;
-    private Game game;
-    JLabel label;
-    JLabel label1;
+    private final Field field;
+    private final JButton[][] buttons;
+    private final JLabel label;
+    private final JLabel label1;
     int timer = 10;
 
     int count;
     int x = -1;
     int y = -1;
 
-    public FrameField(final Field field) {
+    public FrameField(final Field field, final Game game) {
         super("Игровое окно");
         this.field = field;
         this.field.addObserver(this);

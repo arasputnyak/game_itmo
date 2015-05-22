@@ -20,6 +20,16 @@ public class Field {
     private Cell matrixCell = new Cell();
     int score = 0;
     int check = 0;
+    public void reset() {
+        fillPole();
+        while (checkLine()) {
+            removeBalls();
+            while (noBalls()) {
+                replaceBalls();
+            }
+        }
+        informObservers();
+    }
     public void fillPole() {
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length; j++) {
