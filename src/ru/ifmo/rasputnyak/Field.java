@@ -18,6 +18,19 @@ public class Field {
         this.matrixPole = new Cell.Color[length][length];
     }
     private Cell matrixCell = new Cell();
+    int score = 0;
+    int check = 0;
+    public void reset() {
+        fillPole();
+        while (checkLine()) {
+            removeBalls();
+            while (noBalls()) {
+                replaceBalls();
+            }
+        }
+        score = 0;
+        informObservers();
+    }
     public void fillPole() {
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length; j++) {
@@ -42,15 +55,23 @@ public class Field {
                 value2 = matrixPole[z][t];
                 matrixPole[x][y] = value2;
                 matrixPole[z][t] = value1;
+                score = field.getScore3();
+                score = field.getScore2();
+                score = field.getScore1();
+                check = score;
+                if (check == 0) {
+                    matrixPole[x][y] = value1;
+                    matrixPole[z][t] = value2;
+                }
                 f = true;
             }
         }
-            while (field.checkline() == true) {
-                field.removeBalls();
-                while (field.noBalls() == true) {
-                    field.replaceBalls();
-                }
+        while (field.checkLine() == true) {
+            field.removeBalls();
+            while (field.noBalls() == true) {
+                field.replaceBalls();
             }
+        }
         field.informObservers();
     }
 
@@ -193,7 +214,7 @@ public class Field {
         }
         return f;
     }
-    public boolean checkline() {
+    public boolean checkLine() {
         boolean f = false;
         for (int i = 0; i < length; i++) {
             for (int j = 0; j < length - 2; j++) {
@@ -232,6 +253,7 @@ public class Field {
         return s;
     }
 }
+
 
 
 

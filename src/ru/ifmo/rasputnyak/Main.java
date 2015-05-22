@@ -9,16 +9,12 @@ import javax.swing.*;
  */
 public class Main {
     public static void main(String[] args) {
-        Field field = new Field(15);
-        field.fillPole();
-            while (field.checkline() == true) {
-                field.removeBalls();
-                while (field.noBalls()) {
-                    field.replaceBalls();
-                }
-            }
-        FrameField frame = new FrameField(field);
-        frame.setVisible(true);
+        final Field field = new Field(13);
+        final Game newGame = new Game(field);
 
+        newGame.startNewGame();
+
+        FrameField frame = new FrameField(field, newGame);
+        frame.setVisible(true);
     }
 }
