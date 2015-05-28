@@ -66,12 +66,12 @@ public class Field {
                 f = true;
             }
         }
-        while (field.checkLine() == true) {
-            field.removeBalls();
-            while (field.noBalls() == true) {
-                field.replaceBalls();
-            }
-        }
+        //while (field.checkLine() == true) {
+            //field.removeBalls();
+            //while (field.noBalls() == true) {
+                //field.replaceBalls();
+            //}
+        //}
         field.informObservers();
     }
 

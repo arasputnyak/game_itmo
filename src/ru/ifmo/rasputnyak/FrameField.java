@@ -10,10 +10,10 @@ import java.awt.event.ActionListener;
  */
 public class FrameField extends JFrame implements FieldObserver {
     private final Field field;
-    private final JButton[][] buttons;
+    private final RoundButton[][] buttons;
     private final JLabel label;
     private final JLabel label1;
-    int timer = 10;
+    int timer = 100;
 
     int count;
     int x = -1;
@@ -42,15 +42,12 @@ public class FrameField extends JFrame implements FieldObserver {
                                 + String.valueOf(timer));
                         timer--;
                         if (timer == 0) {
-                            try {
-                                JOptionPane.showMessageDialog(null, "Игра окончена!" + "\n" + "Ваш результат: " + count + " очков");
-                                Thread.sleep(4000);
-                                game.startNewGame();
-                                count = 0;
-                                timer = 10;
-                            } catch (InterruptedException e1) {
-                                e1.printStackTrace();
-                            }
+                            JOptionPane.showMessageDialog(null, "Игра окончена!" + "\n" + "Ваш результат: " + count + " очков");
+                            game.startNewGame();
+                            fieldChanged();
+                            timer = 100;
+                            count = 0;
+                            label.setText("Текущий счет: " + count);
                         }
                     }
                 });
@@ -97,8 +94,25 @@ public class FrameField extends JFrame implements FieldObserver {
                             x1 = i1;
                             y1 = j1;
                             field.changeMeaning(x, y, x1, y1, field);
-                            x = -1;
-                            y = -1;
+                            try {
+
+                                while (field.checkLine() == true) {
+                                    field.removeBalls();
+                                    fieldChanged();
+                                    Thread.sleep(250);
+                                    while (field.noBalls() == true) {
+                                        field.replaceBalls();
+                                        fieldChanged();
+                                    }
+
+                                }
+                            getCount();
+                            label.setText("Текущий счет: " + count);
+                                x = -1;
+                                y = -1;
+                            } catch (InterruptedException e1) {
+                                e1.printStackTrace();
+                            }
                         } else  {
                             x = i1;
                             y = j1;
@@ -126,8 +140,10 @@ public class FrameField extends JFrame implements FieldObserver {
                 int reply = JOptionPane.showConfirmDialog(null, "Начать новую игру?", "New Game", JOptionPane.YES_NO_OPTION);
                 if (reply == JOptionPane.YES_OPTION) {
                     game.startNewGame();
+                    fieldChanged();
                     count = 0;
                     timer = 100;
+                    label.setText("Текущий счет: " + count);
                 }
             }
         });
@@ -152,9 +168,15 @@ public class FrameField extends JFrame implements FieldObserver {
                 if (field.getMeaning(i, j).equals(Cell.Color.Y)) {
                     buttons[i][j].setBackground(Color.decode("#FFFF00"));
                 }
+                if (field.getMeaning(i, j).equals(Cell.Color._)) {
+                    buttons[i][j].setBackground(Color.decode("#000000"));
+                }
             }
+            //count = count + field.score;
+            //label.setText("Текущий счет: " + count);
         }
+    }
+    public void getCount() {
         count = count + field.score;
-        label.setText("Текущий счет: " + count);
     }
 }
