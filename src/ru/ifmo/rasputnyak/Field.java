@@ -28,6 +28,10 @@ public class Field {
                 replaceBalls();
             }
         }
+<<<<<<< HEAD
+=======
+        score = 0;
+>>>>>>> t01
         informObservers();
     }
     public void fillPole() {
@@ -65,12 +69,21 @@ public class Field {
                 f = true;
             }
         }
+<<<<<<< HEAD
         while (field.checkLine() == true) {
                 field.removeBalls();
                 while (field.noBalls() == true) {
                     field.replaceBalls();
                 }
             }
+=======
+        //while (field.checkLine() == true) {
+            //field.removeBalls();
+            //while (field.noBalls() == true) {
+                //field.replaceBalls();
+            //}
+        //}
+>>>>>>> t01
         field.informObservers();
     }
 
@@ -252,6 +265,7 @@ public class Field {
         return s;
     }
 }
+
 
 
 

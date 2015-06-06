@@ -12,4 +12,7 @@ public class Game {
         field.reset();
     }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> t01
