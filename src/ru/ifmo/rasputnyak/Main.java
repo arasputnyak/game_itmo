@@ -9,7 +9,7 @@ import javax.swing.*;
  */
 public class Main {
     public static void main(String[] args) {
-        final Field field = new Field(13);
+        final Field field = new Field(3);
         final Game newGame = new Game(field);
 
         newGame.startNewGame();
